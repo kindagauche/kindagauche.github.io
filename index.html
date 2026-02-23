@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kinda gauche</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: #000000;
+        }
+
+        body {
+            background-color: #000000;
+            color: #00ff80;
+            font-family: "Courier New", Courier, monospace;
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 80px;
+            margin: 0;
+            cursor: none;
+        }
+
+        /* 90's Windows custom cursor */
+        .win95-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-1px, -1px);
+            transition: transform 0.05s linear;
+        }
+
+        .win95-cursor.glitch {
+            transition: none;
+            animation: cursorTvStatic 0.2s steps(6);
+        }
+
+        @keyframes cursorTvStatic {
+            0% { transform: translate(-1px, -1px); filter: brightness(1.15) contrast(1.25); }
+            17% { transform: translate(0px, 1px); filter: brightness(0.7) contrast(1.4); }
+            33% { transform: translate(1px, -1px); filter: brightness(1.35) contrast(0.85); }
+            50% { transform: translate(-1px, 0px); filter: brightness(0.65) contrast(1.5); }
+            67% { transform: translate(0px, -1px); filter: brightness(1.2) contrast(1.1); }
+            83% { transform: translate(-1px, 1px); filter: brightness(0.85) contrast(1.35); }
+            100% { transform: translate(-1px, -1px); filter: none; }
+        }
+
+        /* Keep custom cursor on links and images (no pointer) */
+        a, button, input, textarea, [onclick] {
+            cursor: none;
+        }
+
+        /* Keep custom cursor when popups are open */
+        .win95-window,
+        .win95-window *,
+        .overlay {
+            cursor: none;
+        }
+
+        .spinner {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff80;
+            z-index: 100;
+            letter-spacing: 6px;
+            font-family: "Courier New", "Courier", monospace;
+            text-transform: uppercase;
+            animation: tvStatic 0.08s infinite steps(10);
+            transform: rotate(-90deg);
+        }
+
+        @keyframes tvStatic {
+            0% {
+                text-shadow: 
+                    1px 0 0 rgba(255, 0, 255, 0.3),
+                    -1px 0 0 rgba(0, 255, 255, 0.3),
+                    0 0 10px #00ff80;
+                filter: brightness(1.1) contrast(1.2);
+            }
+            10% {
+                text-shadow: 
+                    -1px 1px 0 rgba(255, 0, 255, 0.4),
+                    1px -1px 0 rgba(0, 255, 255, 0.2),
+                    0 0 8px #00ff80;
+                filter: brightness(0.9) contrast(1.3);
+            }
+            20% {
+                text-shadow: 
+                    2px 0 0 rgba(255, 0, 255, 0.2),
+                    -2px 0 0 rgba(0, 255, 255, 0.4),
+                    0 0 12px #00ff80;
+                filter: brightness(1.2) contrast(1.1);
+            }
+            30% {
+                text-shadow: 
+                    0 -1px 0 rgba(255, 0, 255, 0.3),
+                    0 1px 0 rgba(0, 255, 255, 0.3),
+                    0 0 9px #00ff80;
+                filter: brightness(1.0) contrast(1.4);
+            }
+            40% {
+                text-shadow: 
+                    -2px 0 0 rgba(255, 0, 255, 0.4),
+                    2px 1px 0 rgba(0, 255, 255, 0.2),
+                    0 0 11px #00ff80;
+                filter: brightness(0.95) contrast(1.2);
+            }
+            50% {
+                text-shadow: 
+                    1px -1px 0 rgba(255, 0, 255, 0.2),
+                    -1px 1px 0 rgba(0, 255, 255, 0.4),
+                    0 0 10px #00ff80;
+                filter: brightness(1.15) contrast(1.1);
+            }
+            60% {
+                text-shadow: 
+                    0 2px 0 rgba(255, 0, 255, 0.3),
+                    0 -1px 0 rgba(0, 255, 255, 0.3),
+                    0 0 8px #00ff80;
+                filter: brightness(0.85) contrast(1.3);
+            }
+            70% {
+                text-shadow: 
+                    2px 1px 0 rgba(255, 0, 255, 0.4),
+                    -1px 0 0 rgba(0, 255, 255, 0.2),
+                    0 0 12px #00ff80;
+                filter: brightness(1.1) contrast(1.2);
+            }
+            80% {
+                text-shadow: 
+                    -1px -1px 0 rgba(255, 0, 255, 0.2),
+                    1px 1px 0 rgba(0, 255, 255, 0.4),
+                    0 0 9px #00ff80;
+                filter: brightness(1.0) contrast(1.4);
+            }
+            90% {
+                text-shadow: 
+                    1px 1px 0 rgba(255, 0, 255, 0.3),
+                    -2px 0 0 rgba(0, 255, 255, 0.3),
+                    0 0 11px #00ff80;
+                filter: brightness(0.9) contrast(1.1);
+            }
+            100% {
+                text-shadow: 
+                    0 0 0 rgba(255, 0, 255, 0.3),
+                    0 0 0 rgba(0, 255, 255, 0.3),
+                    0 0 10px #00ff80;
+                filter: brightness(1.05) contrast(1.2);
+            }
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+
+        .header {
+            padding: 12px 0 18px;
+            background-color: #000000;
+            overflow: hidden;
+        }
+
+        .header p {
+            color: #ffff00;
+            margin-top: 10px;
+            font-size: 14px;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .header-scroll {
+            white-space: nowrap;
+            display: inline-block;
+            animation: scrollRightToLeft 18s linear infinite;
+        }
+
+        .header p.header-scroll {
+            color: #00ffff;
+        }
+
+        @keyframes scrollRightToLeft {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .content-sections {
+            max-width: 720px;
+            margin: 28px auto;
+            padding: 0 16px;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .content-section h2 {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 16px;
+            font-weight: normal;
+            text-transform: lowercase;
+            color: #00ff80;
+            margin-bottom: 12px;
+            padding-bottom: 4px;
+        }
+
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .content-section a {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            font-weight: normal;
+            color: #654fe6;
+            text-decoration: none;
+        }
+
+        .content-section a:hover,
+        .content-section a:visited:hover {
+            color: #00ffff;
+        }
+
+        .content-section a:visited {
+            color: #ffffff;
+        }
+
+        .content-section a:active {
+            color: #ff00ff;
+        }
+
+        .footer {
+            text-align: left;
+            padding: 44px 22px 22px 22px;
+            background-color: #000000;
+            margin-top: 48px;
+            font-size: 11px;
+            color: #c0c0c0;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer a {
+            color: #00ffff;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .footer a:hover,
+        .footer a:visited:hover {
+            color: #00ffff;
+        }
+
+        .footer a:visited {
+            color: #ffffff;
+        }
+
+        .footer a:active {
+            color: #ff00ff;
+        }
+
+        .footer-copyright {
+            margin-top: 14px;
+        }
+
+        /* Windows 95 Style Modal */
+        .win95-window {
+            display: none;
+            position: fixed;
+            background-color: #a0a0a0;
+            border: 2px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            min-width: 300px;
+        }
+
+        .win95-window.active {
+            display: block;
+        }
+
+        .win95-titlebar {
+            background: linear-gradient(90deg, #00ff80 0%, #654fe6 100%);
+            padding: 4px 6px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            text-transform: lowercase;
+        }
+
+        .win95-titlebar span {
+            flex: 1;
+            text-align: left;
+            color: #2d2d2d;
+        }
+
+        .win95-buttons {
+            display: flex;
+            gap: 0;
+            flex-shrink: 0;
+        }
+
+        .win95-btn {
+            width: 18px;
+            height: 18px;
+            background-color: #a0a0a0;
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            color: #000000;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Courier New", monospace;
+        }
+
+        .win95-btn:active {
+            border-color: #000000 #ffffff #ffffff #000000;
+        }
+
+        .win95-btn-close {
+            position: relative;
+            font-size: 0;
+        }
+
+        .win95-btn-close::before,
+        .win95-btn-close::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: #000000;
+            top: 50%;
+            left: 50%;
+        }
+
+        .win95-btn-close::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .win95-btn-close::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        .win95-btn-close:active::before,
+        .win95-btn-close:active::after {
+            background: #000000;
+        }
+
+        .win95-content {
+            padding: 15px;
+            background-color: #a0a0a0;
+            max-height: 70vh;
+            overflow: auto;
+            text-transform: lowercase;
+        }
+
+        .win95-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border: none;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .minimized {
+            width: 200px !important;
+            height: auto !important;
+        }
+
+        .minimized .win95-content {
+            display: none;
+        }
+
+        .link-modal-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .link-modal-content img {
+            max-width: 100%;
+            height: auto;
+            max-height: 60vh;
+            display: block;
+            border: 1px solid #808080;
+        }
+
+        .win95-window.maximized.link-window .link-modal-content img {
+            max-height: 85vh;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="win95-cursor" id="win95Cursor" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" stroke="#000" stroke-width="1.2" d="M4 4 L4 18 L10 14 L14 20 L16 19 L12 13 L18 12 Z"/>
+        </svg>
+    </div>
+    <div class="spinner" data-text="KINDA GAUCHE">KINDA GAUCHE</div>
+
+    <div class="content-sections">
+        <section class="content-section">
+            <h2>illo</h2>
+            <ul>
+                <li><a href="#" onclick="openLinkModal(event, 'First link', ['https://picsum.photos/600/400?random=1', 'https://picsum.photos/600/400?random=2'])">First link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'Second link', ['https://picsum.photos/600/400?random=3'])">Second link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'Third link', ['https://picsum.photos/600/400?random=4', 'https://picsum.photos/600/400?random=5', 'https://picsum.photos/600/400?random=6'])">Third link</a></li>
+            </ul>
+        </section>
+        <section class="content-section">
+            <h2>design</h2>
+            <ul>
+                <li><a href="#" onclick="openLinkModal(event, 'First link', ['https://picsum.photos/600/400?random=7'])">First link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'Second link', ['https://picsum.photos/600/400?random=8', 'https://picsum.photos/600/400?random=9'])">Second link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'Third link', ['https://picsum.photos/600/400?random=10'])">Third link</a></li>
+            </ul>
+        </section>
+        <section class="content-section">
+            <h2>build</h2>
+            <ul>
+                <li><a href="#" onclick="openLinkModal(event, 'First link', ['https://picsum.photos/600/400?random=11', 'https://picsum.photos/600/400?random=12', 'https://picsum.photos/600/400?random=13'])">First link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'Second link', ['https://picsum.photos/600/400?random=14'])">Second link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'Third link', ['https://picsum.photos/600/400?random=15', 'https://picsum.photos/600/400?random=16'])">Third link</a></li>
+            </ul>
+        </section>
+        <section class="content-section">
+            <ul>
+                <li><a href="mailto:kindagauche@proton.me">re: kinda gauche</a></li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="header">
+        <p class="header-scroll">it's dogs all the way down.</p>
+    </div>
+
+    <div class="footer">
+        <p class="footer-copyright">&copy; 1986/2026 kinda gauche | ALL RIGHTS RESERVED</p>
+        <p>&nbsp;</p>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+    <!-- Link popups are created dynamically (multiple can be open at once) -->
+
+    <script>
+        let draggedElement = null;
+        let offsetX = 0;
+        let offsetY = 0;
+        let isMaximized = {};
+
+        // Make windows draggable
+        document.addEventListener('mousedown', function(e) {
+            if (e.target.classList.contains('win95-titlebar') || e.target.parentElement.classList.contains('win95-titlebar')) {
+                const titlebar = e.target.classList.contains('win95-titlebar') ? e.target : e.target.parentElement;
+                draggedElement = titlebar.parentElement;
+                const rect = draggedElement.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (draggedElement && !draggedElement.classList.contains('minimized')) {
+                draggedElement.style.left = (e.clientX - offsetX) + 'px';
+                draggedElement.style.top = (e.clientY - offsetY) + 'px';
+            }
+            const cursor = document.getElementById('win95Cursor');
+            if (cursor && !cursor.classList.contains('glitch')) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        // Random glitch every 4-6 seconds
+        function scheduleGlitch() {
+            const delay = 4000 + Math.random() * 2000;
+            setTimeout(function() {
+                const cursor = document.getElementById('win95Cursor');
+                if (cursor) {
+                    cursor.classList.add('glitch');
+                    setTimeout(function() {
+                        cursor.classList.remove('glitch');
+                    }, 120);
+                }
+                scheduleGlitch();
+            }, delay);
+        }
+        scheduleGlitch();
+
+        document.addEventListener('mouseup', function() {
+            draggedElement = null;
+        });
+
+        let linkWindowCount = 0;
+        function openLinkModal(event, title, imageUrls) {
+            event.preventDefault();
+            if (!imageUrls || !imageUrls.length) return;
+            linkWindowCount++;
+            const id = 'linkWindow-' + linkWindowCount;
+            const existing = document.querySelectorAll('.win95-window.link-window').length;
+            const offset = Math.min(existing * 24, 120);
+            const win = document.createElement('div');
+            win.className = 'win95-window link-window active';
+            win.id = id;
+            win.innerHTML =
+                '<div class="win95-titlebar">' +
+                '<span>' + (title + '.jpg').toLowerCase() + '</span>' +
+                '<div class="win95-buttons">' +
+                '<div class="win95-btn win95-btn-close" onclick="closeWindow(\'' + id + '\')" title="close"></div>' +
+                '</div></div>' +
+                '<div class="win95-content link-modal-content"></div>';
+            const content = win.querySelector('.win95-content');
+            imageUrls.forEach(function(url) {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = title;
+                content.appendChild(img);
+            });
+            win.style.left = 'calc(50% + ' + offset + 'px)';
+            win.style.top = 'calc(50% + ' + offset + 'px)';
+            win.style.transform = 'translate(-50%, -50%)';
+            win.style.position = 'fixed';
+            document.body.appendChild(win);
+            isMaximized[id] = false;
+        }
+
+        function closeWindow(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            const isLinkWindow = modal.classList.contains('link-window');
+            modal.classList.remove('active');
+            modal.classList.remove('minimized');
+            if (isLinkWindow) modal.remove();
+            const openWindows = document.querySelectorAll('.win95-window.active');
+            if (openWindows.length === 0) {
+                document.getElementById('overlay').classList.remove('active');
+            }
+        }
+
+        function closeAll() {
+            document.querySelectorAll('.win95-window.link-window').forEach(win => win.remove());
+            document.querySelectorAll('.win95-window').forEach(win => {
+                win.classList.remove('active');
+                win.classList.remove('minimized');
+            });
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        // Prevent text selection while dragging
+        document.addEventListener('selectstart', function(e) {
+            if (draggedElement) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
