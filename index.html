@@ -23,7 +23,101 @@
             position: relative;
             padding-top: 80px;
             margin: 0;
-            cursor: none;
+        }
+
+        .spinner {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff80;
+            z-index: 100;
+            letter-spacing: 6px;
+            font-family: "Courier New", "Courier", monospace;
+            text-transform: uppercase;
+            animation: tvStatic 0.08s infinite steps(10);
+            transform: rotate(-90deg);
+        }
+
+        @keyframes tvStatic {
+            0% {
+                text-shadow: 
+                    1px 0 0 rgba(255, 0, 255, 0.3),
+                    -1px 0 0 rgba(0, 255, 255, 0.3),
+                    0 0 10px #00ff80;
+                filter: brightness(1.1) contrast(1.2);
+            }
+            10% {
+                text-shadow: 
+                    -1px 1px 0 rgba(255, 0, 255, 0.4),
+                    1px -1px 0 rgba(0, 255, 255, 0.2),
+                    0 0 8px #00ff80;
+                filter: brightness(0.9) contrast(1.3);
+            }
+            20% {
+                text-shadow: 
+                    2px 0 0 rgba(255, 0, 255, 0.2),
+                    -2px 0 0 rgba(0, 255, 255, 0.4),
+                    0 0 12px #00ff80;
+                filter: brightness(1.2) contrast(1.1);
+            }
+            30% {
+                text-shadow: 
+                    0 -1px 0 rgba(255, 0, 255, 0.3),
+                    0 1px 0 rgba(0, 255, 255, 0.3),
+                    0 0 9px #00ff80;
+                filter: brightness(1.0) contrast(1.4);
+            }
+            40% {
+                text-shadow: 
+                    -2px 0 0 rgba(255, 0, 255, 0.4),
+                    2px 1px 0 rgba(0, 255, 255, 0.2),
+                    0 0 11px #00ff80;
+                filter: brightness(0.95) contrast(1.2);
+            }
+            50% {
+                text-shadow: 
+                    1px -1px 0 rgba(255, 0, 255, 0.2),
+                    -1px 1px 0 rgba(0, 255, 255, 0.4),
+                    0 0 10px #00ff80;
+                filter: brightness(1.15) contrast(1.1);
+            }
+            60% {
+                text-shadow: 
+                    0 2px 0 rgba(255, 0, 255, 0.3),
+                    0 -1px 0 rgba(0, 255, 255, 0.3),
+                    0 0 8px #00ff80;
+                filter: brightness(0.85) contrast(1.3);
+            }
+            70% {
+                text-shadow: 
+                    2px 1px 0 rgba(255, 0, 255, 0.4),
+                    -1px 0 0 rgba(0, 255, 255, 0.2),
+                    0 0 12px #00ff80;
+                filter: brightness(1.1) contrast(1.2);
+            }
+            80% {
+                text-shadow: 
+                    -1px -1px 0 rgba(255, 0, 255, 0.2),
+                    1px 1px 0 rgba(0, 255, 255, 0.4),
+                    0 0 9px #00ff80;
+                filter: brightness(1.0) contrast(1.4);
+            }
+            90% {
+                text-shadow: 
+                    1px 1px 0 rgba(255, 0, 255, 0.3),
+                    -2px 0 0 rgba(0, 255, 255, 0.3),
+                    0 0 11px #00ff80;
+                filter: brightness(0.9) contrast(1.1);
+            }
+            100% {
+                text-shadow: 
+                    0 0 0 rgba(255, 0, 255, 0.3),
+                    0 0 0 rgba(0, 255, 255, 0.3),
+                    0 0 10px #00ff80;
+                filter: brightness(1.05) contrast(1.2);
+            }
         }
 
         @keyframes scrollText {
@@ -107,7 +201,7 @@
         }
 
         .content-section a:active {
-            color: #ff00ff;
+            color: #00ff80;
         }
 
         .footer {
@@ -125,7 +219,6 @@
         .footer a {
             color: #00ffff;
             text-decoration: none;
-            cursor: pointer;
             font-size: 13px;
         }
 
@@ -139,7 +232,7 @@
         }
 
         .footer a:active {
-            color: #ff00ff;
+            color: #00ffff;
         }
 
         .footer-copyright {
@@ -163,7 +256,7 @@
         }
 
         .win95-titlebar {
-            background: linear-gradient(90deg, #00ff80 0%, #654fe6 100%);
+            background: #6b4423;
             padding: 4px 6px;
             font-weight: bold;
             display: flex;
@@ -176,7 +269,7 @@
         .win95-titlebar span {
             flex: 1;
             text-align: left;
-            color: #2d2d2d;
+            color: #f5f0e8;
         }
 
         .win95-buttons {
@@ -295,32 +388,31 @@
     </style>
 </head>
 <body>
-   
     <div class="spinner" data-text="KINDA GAUCHE">KINDA GAUCHE</div>
 
     <div class="content-sections">
         <section class="content-section">
             <h2>illo</h2>
             <ul>
-                <li><a href="#" onclick="openLinkModal(event, 'First link', ['https://picsum.photos/600/400?random=1', 'https://picsum.photos/600/400?random=2'])">First link</a></li>
-                <li><a href="#" onclick="openLinkModal(event, 'Second link', ['https://picsum.photos/600/400?random=3'])">Second link</a></li>
-                <li><a href="#" onclick="openLinkModal(event, 'Third link', ['https://picsum.photos/600/400?random=4', 'https://picsum.photos/600/400?random=5', 'https://picsum.photos/600/400?random=6'])">Third link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
             </ul>
         </section>
         <section class="content-section">
             <h2>design</h2>
             <ul>
-                <li><a href="#" onclick="openLinkModal(event, 'First link', ['https://picsum.photos/600/400?random=7'])">First link</a></li>
-                <li><a href="#" onclick="openLinkModal(event, 'Second link', ['https://picsum.photos/600/400?random=8', 'https://picsum.photos/600/400?random=9'])">Second link</a></li>
-                <li><a href="#" onclick="openLinkModal(event, 'Third link', ['https://picsum.photos/600/400?random=10'])">Third link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
             </ul>
         </section>
         <section class="content-section">
             <h2>build</h2>
             <ul>
-                <li><a href="#" onclick="openLinkModal(event, 'First link', ['https://picsum.photos/600/400?random=11', 'https://picsum.photos/600/400?random=12', 'https://picsum.photos/600/400?random=13'])">First link</a></li>
-                <li><a href="#" onclick="openLinkModal(event, 'Second link', ['https://picsum.photos/600/400?random=14'])">Second link</a></li>
-                <li><a href="#" onclick="openLinkModal(event, 'Third link', ['https://picsum.photos/600/400?random=15', 'https://picsum.photos/600/400?random=16'])">Third link</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
+                <li><a href="#" onclick="openLinkModal(event, 'biz-000.jpg', ['biz-000.jpg'])">biz-000.jpg</a></li>
             </ul>
         </section>
         <section class="content-section">
@@ -331,7 +423,7 @@
     </div>
 
     <div class="header">
-        <p class="header-scroll">graphite gouache charcoal clay conté watercolor photo collage block printing acrylic oil pastel linocut ink hot press tape copper etching wood plaster prismacolor canvas pencil glitter cold press vellum [minimal digital color correction] [no fucking ai ever]</p>
+        <p class="header-scroll">it's dogs all the way down.</p>
     </div>
 
     <div class="footer">
@@ -365,28 +457,7 @@
                 draggedElement.style.left = (e.clientX - offsetX) + 'px';
                 draggedElement.style.top = (e.clientY - offsetY) + 'px';
             }
-            const cursor = document.getElementById('win95Cursor');
-            if (cursor && !cursor.classList.contains('glitch')) {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            }
         });
-
-        // Random glitch every 4-6 seconds
-        function scheduleGlitch() {
-            const delay = 4000 + Math.random() * 2000;
-            setTimeout(function() {
-                const cursor = document.getElementById('win95Cursor');
-                if (cursor) {
-                    cursor.classList.add('glitch');
-                    setTimeout(function() {
-                        cursor.classList.remove('glitch');
-                    }, 120);
-                }
-                scheduleGlitch();
-            }, delay);
-        }
-        scheduleGlitch();
 
         document.addEventListener('mouseup', function() {
             draggedElement = null;
